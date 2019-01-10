@@ -13,10 +13,7 @@ sudo apt-get -y install unrar
 sudo apt-get -y install foremost
 sudo apt-get -y install htop
 
-# QEMU with MIPS/ARM - http://reverseengineering.stackexchange.com/questions/8829/cross-debugging-for-mips-elf-with-qemu-toolchain
-sudo apt-get -y install qemu qemu-user qemu-user-static
-sudo apt-get -y install 'binfmt*'
-sudo apt-get -y install libc6-armhf-armel-cross
+
 sudo apt-get -y install debian-keyring
 sudo apt-get -y install debian-archive-keyring
 sudo apt-get -y install emdebian-archive-keyring
@@ -24,11 +21,7 @@ tee /etc/apt/sources.list.d/emdebian.list << EOF
 deb http://mirrors.mit.edu/debian squeeze main
 deb http://www.emdebian.org/debian squeeze main
 EOF
-sudo apt-get -y install libc6-mipsel-cross
-sudo apt-get -y install libc6-arm-cross
-mkdir /etc/qemu-binfmt
-ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel
-ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
+
 rm /etc/apt/sources.list.d/emdebian.list
 
 # These are so the 64 bit vm can build 32 bit
@@ -60,10 +53,7 @@ popd
 sudo pip3 install pycparser # Use pip3 for Python3
 
 # Install radare2
-git clone https://github.com/radare/radare2
-pushd radare2
-./sys/install.sh
-popd
+
 
 # Install binwalk
 git clone https://github.com/devttys0/binwalk
@@ -80,12 +70,7 @@ sudo python setup.py install
 popd
 
 # Install Angr
-sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
-sudo pip install virtualenv
-virtualenv angr
-source angr/bin/activate
-pip install angr --upgrade
-deactivate
+
 
 # oh-my-zsh
 sudo apt-get -y install zsh
@@ -124,13 +109,7 @@ wget https://raw.githubusercontent.com/hellman/fixenv/master/r.sh
 mv r.sh fixenv
 chmod +x fixenv
 
-# AFL Fuzzer
-wget http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz
-tar -zxvf afl-latest.tgz
-pushd afl-*
-make && sudo make install
-popd
-rm afl-latest.tgz
+
 
 # Enable 32bit binaries on 64bit host
 sudo dpkg --add-architecture i386
